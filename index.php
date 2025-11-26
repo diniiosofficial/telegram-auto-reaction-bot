@@ -35,32 +35,76 @@ const HTML_CONTENT = '<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Telegram Auto Reaction Bot</title>
+<title>VenomDevX Auto Reaction Bot</title>
 <meta name="description" content="Telegram Auto Reaction bot that reacts to all messages received from chats automatically. Developed by @VenomDevX">
 <style>
   body, html {
     height: 100%; margin: 0; display: flex; justify-content: center; align-items: center; flex-direction: column; font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
   }
-  .logo {
-    width: 60%; margin-bottom: 20px;
+  .container {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
   }
-  .title { margin-bottom: 20px; font-size: 34px; font-weight: bold; color: #333; text-align: center; }
-  .developer { margin-top: 20px; font-size: 14px; color: #666; }
+  .title { 
+    margin-bottom: 20px; 
+    font-size: 2.5rem; 
+    font-weight: bold; 
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+  .developer { 
+    margin-top: 30px; 
+    font-size: 1.1rem; 
+    color: #e0e0e0;
+    font-weight: bold;
+  }
   .button {
-    padding: 10px 20px; margin: 10px; font-size: 16px; cursor: pointer; text-align: center; color: #fff; border: none; border-radius: 15px;
-    transition: background-color 0.3s ease; display: inline-block; outline: none;
+    padding: 15px 30px; 
+    margin: 10px; 
+    font-size: 1.2rem; 
+    cursor: pointer; 
+    text-align: center; 
+    color: #fff; 
+    border: none; 
+    border-radius: 25px;
+    transition: all 0.3s ease; 
+    display: inline-block; 
+    outline: none;
+    background: linear-gradient(45deg, #FF416C, #FF4B2B);
+    box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3);
   }
-  .githubBtn { background-color: #0881FD; }
-  .githubBtn:hover { background-color: #0672E0; }
+  .button:hover { 
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 75, 43, 0.4);
+  }
+  .status {
+    margin-top: 20px;
+    padding: 10px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    font-size: 0.9rem;
+  }
 </style>
 </head>
 <body>
 
-<div class="title">Telegram Auto Reaction Bot 🎉</div>
-
-<button class="button githubBtn" onclick="window.location=\'https://t.me/VenomDevX_Reaction_Bot\'">Start Bot</button>
-
-<div class="developer">Developed by @VenomDevX</div>
+<div class="container">
+  <div class="title">VenomDevX Auto Reaction Bot 🎉</div>
+  <p>Automatically reacts to messages with emojis in Telegram chats!</p>
+  
+  <button class="button" onclick="window.location=\'https://t.me/VenomDevX_Reaction_Bot\'">🚀 Start Bot Now</button>
+  
+  <div class="status">
+    ✅ Bot Status: <strong>LIVE</strong><br>
+    🌐 Server: <strong>Active</strong>
+  </div>
+  
+  <div class="developer">Crafted with 💚 by @VenomDevX</div>
+</div>
 
 </body>
 </html>';
@@ -255,7 +299,8 @@ try {
             'timestamp' => date('c'),
             'environment' => getenv('NODE_ENV') ?: 'production',
             'botConfigured' => !empty($BOT_TOKEN) && !empty($BOT_USERNAME),
-            'developer' => '@VenomDevX'
+            'developer' => '@VenomDevX',
+            'url' => 'https://telegram-auto-reaction-bot-ftqk.onrender.com'
         ]);
     }
     // Default GET request - show HTML page
