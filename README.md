@@ -1,1 +1,0 @@
-# telegram-auto-reaction-bot
