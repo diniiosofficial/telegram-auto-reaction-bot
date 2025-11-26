@@ -4,6 +4,7 @@
  * 
  * Single file PHP implementation of the Auto Reaction Bot
  * Automatically reacts to messages in Telegram chats with customizable emojis
+ * Developed by @VenomDevX
  */
 
 // Configuration - Direct Setup
@@ -25,9 +26,9 @@ Welcome to the *Auto Emoji Reaction Bot 🎉*, ready to sprinkle your conversati
 
 ✍️ To view the emojis I can use, simply type /reactions.
 
-Let\'s elevate our conversations with more energy and color! 🚀';
+Let\'s elevate our conversations with more energy and color! 🚀
 
-const DONATE_MESSAGE = '🙏 Support Auto Reaction Bot ✨ and help us stay online and continue to improve! ✨ Your donations keep our services live and enable us to bring you new features and enhancements. Every star makes a difference! Thank you! 🌟🚀';
+*Developed by @VenomDevX*';
 
 const HTML_CONTENT = '<!DOCTYPE html>
 <html lang="en">
@@ -35,7 +36,7 @@ const HTML_CONTENT = '<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Telegram Auto Reaction Bot</title>
-<meta name="description" content="Telegram Auto Reaction bot that reacts to all messages received from chats automatically.">
+<meta name="description" content="Telegram Auto Reaction bot that reacts to all messages received from chats automatically. Developed by @VenomDevX">
 <style>
   body, html {
     height: 100%; margin: 0; display: flex; justify-content: center; align-items: center; flex-direction: column; font-family: Arial, sans-serif;
@@ -44,6 +45,7 @@ const HTML_CONTENT = '<!DOCTYPE html>
     width: 60%; margin-bottom: 20px;
   }
   .title { margin-bottom: 20px; font-size: 34px; font-weight: bold; color: #333; text-align: center; }
+  .developer { margin-top: 20px; font-size: 14px; color: #666; }
   .button {
     padding: 10px 20px; margin: 10px; font-size: 16px; cursor: pointer; text-align: center; color: #fff; border: none; border-radius: 15px;
     transition: background-color 0.3s ease; display: inline-block; outline: none;
@@ -57,6 +59,8 @@ const HTML_CONTENT = '<!DOCTYPE html>
 <div class="title">Telegram Auto Reaction Bot 🎉</div>
 
 <button class="button githubBtn" onclick="window.location=\'https://t.me/VenomDevX_Reaction_Bot\'">Start Bot</button>
+
+<div class="developer">Developed by @VenomDevX</div>
 
 </body>
 </html>';
@@ -142,32 +146,6 @@ class TelegramBotAPI {
         
         $this->callApi('sendMessage', $body);
     }
-    
-    /**
-     * Send invoice for donations
-     */
-    public function sendInvoice($chatId, $title, $description, $payload, $providerToken, $startParameter, $currency, $prices) {
-        $this->callApi('sendInvoice', [
-            'chat_id' => $chatId,
-            'title' => $title,
-            'description' => $description,
-            'payload' => $payload,
-            'provider_token' => $providerToken,
-            'start_parameter' => $startParameter,
-            'currency' => $currency,
-            'prices' => $prices
-        ]);
-    }
-    
-    /**
-     * Answer pre-checkout query
-     */
-    public function answerPreCheckoutQuery($preCheckoutQueryId, $ok) {
-        $this->callApi('answerPreCheckoutQuery', [
-            'pre_checkout_query_id' => $preCheckoutQueryId,
-            'ok' => $ok
-        ]);
-    }
 }
 
 /**
@@ -213,9 +191,6 @@ function onUpdate($data, $botApi, $reactions, $restrictedChats, $botUsername, $r
                 [
                     ['text' => '➕ Add to Channel ➕', 'url' => "https://t.me/{$botUsername}?startchannel=botstart"],
                     ['text' => '➕ Add to Group ➕', 'url' => "https://t.me/{$botUsername}?startgroup=botstart"]
-                ],
-                [
-                    ['text' => '💝 Support Us - Donate 🤝', 'url' => "https://t.me/{$botUsername}?start=donate"]
                 ]
             ];
             
@@ -224,20 +199,7 @@ function onUpdate($data, $botApi, $reactions, $restrictedChats, $botUsername, $r
         // Handle /reactions command
         elseif (isset($data['message']) && $text === '/reactions') {
             $reactionsText = implode(', ', $reactions);
-            $botApi->sendMessage($chatId, "✅ Enabled Reactions : \n\n" . $reactionsText);
-        }
-        // Handle /donate command
-        elseif (isset($data['message']) && ($text === '/donate' || $text === '/start donate')) {
-            $botApi->sendInvoice(
-                $chatId,
-                'Donate to Auto Reaction Bot ✨',
-                DONATE_MESSAGE,
-                '{}',
-                '',
-                'donate',
-                'XTR',
-                [['label' => 'Pay ⭐️5', 'amount' => 5]]
-            );
+            $botApi->sendMessage($chatId, "✅ Enabled Reactions : \n\n" . $reactionsText . "\n\n*Developed by @VenomDevX*");
         }
         // Handle regular messages and reactions
         else {
@@ -257,11 +219,6 @@ function onUpdate($data, $botApi, $reactions, $restrictedChats, $botUsername, $r
                 }
             }
         }
-    }
-    // Handle pre-checkout query
-    elseif (isset($data['pre_checkout_query'])) {
-        $botApi->answerPreCheckoutQuery($data['pre_checkout_query']['id'], true);
-        $botApi->sendMessage($data['pre_checkout_query']['from']['id'], 'Thank you for your donation! 💝');
     }
 }
 
@@ -297,7 +254,8 @@ try {
             'status' => 'ok',
             'timestamp' => date('c'),
             'environment' => getenv('NODE_ENV') ?: 'production',
-            'botConfigured' => !empty($BOT_TOKEN) && !empty($BOT_USERNAME)
+            'botConfigured' => !empty($BOT_TOKEN) && !empty($BOT_USERNAME),
+            'developer' => '@VenomDevX'
         ]);
     }
     // Default GET request - show HTML page
