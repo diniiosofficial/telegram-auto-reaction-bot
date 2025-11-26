@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: telegram-auto-bot
+    env: php
+    plan: free
+    buildCommand: echo "Building..."
+    startCommand: php -S 0.0.0.0:$PORT
